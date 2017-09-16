@@ -1,49 +1,42 @@
 function onReady() {
-  const addToDoForm = document.getElementById('addTodoForm');
-  const newToDoText = document.getElementById('newToDoText');
-  const toDoList = document.getElementById('toDoList');
+  var toDos = [];
+  var addToDoForm = document.getElementById('addToDoForm');
 
-  addToDoForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    // get the text
-    let title = newToDoText.value;
-
-    // create a new li
-    let newLi = document.createElement('li');
-
-    // create a new input for the checkbox and set it's type
-    let checkbox = document.createElement('input');
-    checkbox.type = "checkbox";
-
-    // create a delete button.
-    let deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.className = 'btn-delete';
-
-    // set the title
-    newLi.textContent = title;
-
-    // attach it to the ul
-    toDoList.appendChild(newLi);
-
-    // attach the checkbox to the li
-    newLi.appendChild(checkbox);
-
-    // attach the delete button to the li
-    newLi.appendChild(deleteButton);
-
-
-    // empty the input
+  function createNewToDo() {
+    var newToDoText = document.getElementById('newToDoText');
+    toDos.push({
+      title: newToDoText.value,
+      complete: false
+    });
     newToDoText.value = '';
+
+    renderTheUI(toDos);
+
+  }
+
+  function renderTheUI(toDos) {
+    var toDoList = document.getElementById('toDoList');
+
+    toDoList.innerHTML = '';
+
+    toDos.forEach(function(toDo) {
+      var newLi = document.createElement('li');
+      var checkbox = document.createElement('input');
+      checkbox.type = "checkbox";
+
+      newLi.innerHTML = toDo.title;
+
+      toDoList.appendChild(newLi);
+      newLi.appendChild(checkbox);
+    });
+  }
+
+  addTodoForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    createNewToDo();
   });
 
-  toDoList.addEventListener('click', (event) => {
-    const clickedElement = event.target;
-    if(clickedElement.classList.contains('btn-delete')) {
-      toDoList.removeChild(clickedElement.parentElement);
-    }
-  })
+  renderTheUI(toDos);
 }
 
 window.onload = function() {
