@@ -31,7 +31,7 @@ function onReady() {
     });
   }
 
-  addTodoForm.addEventListener('submit', function(event) {
+  addToDoForm.addEventListener('submit', function(event) {
     event.preventDefault();
     createNewToDo();
   });
