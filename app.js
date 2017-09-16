@@ -23,11 +23,14 @@ function onReady() {
       var newLi = document.createElement('li');
       var checkbox = document.createElement('input');
       checkbox.type = "checkbox";
+      var deleteButton = document.createElement('button');
 
       newLi.innerHTML = toDo.title;
+      deleteButton.textContent = "Delete";
 
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
+      newLi.appendChild(deleteButton);
     });
   }
 
